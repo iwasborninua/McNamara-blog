@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\PublicAsset;
 
@@ -37,17 +38,11 @@ PublicAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="/public/images/logo.jpg" alt=""></a>
+                <a class="navbar-brand" href="<?= Url::toRoute(['site/index']);?>"><img src="/public/images/logo.jpg" alt=""></a>
             </div>
 
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                <ul class="nav navbar-nav text-uppercase">
-                    <li><a data-toggle="dropdown" class="dropdown-toggle" href="index.html">Home</a>
-
-                    </li>
-                </ul>
                 <div class="i_con">
                     <ul class="nav navbar-nav text-uppercase">
                         <li><a href="#">Login</a></li>

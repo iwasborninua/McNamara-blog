@@ -2,8 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\Article;
+use app\models\Category;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -61,7 +65,31 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // build a DB query to get all articles with status = 1
+        $query = Article::find();
+
+        // get the total number of articles (but do not fetch the article data yet)
+        $count = $query->count();
+
+        // create a pagination object with the total count
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 5]);
+
+        // limit the query using the pagination and retrieve the articles
+        $articles = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        $popular = Article::find()->orderBy('viewed desc')->limit('3')->all();
+        $recent = Article::find()->orderBy('date desc')->limit('4')->all();
+        $categories = Category::find()->all();
+
+        return $this->render('index', [
+            'pagination' => $pagination,
+            'articles' => $articles,
+            'popular' => $popular,
+            'recent' => $recent,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -124,13 +152,49 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionView()
+    public function actionView($id)
     {
-        return $this->render('single');
+        $article = Article::findOne($id);
+        $popular = Article::find()->orderBy('viewed desc')->limit('3')->all();
+        $recent = Article::find()->orderBy('date desc')->limit('4')->all();
+        $categories = Category::find()->all();
+//        $tags = ArrayHelper::map($article->tags, 'id', 'title');
+        $tags = $article->tags;
+        return $this->render('single', [
+            'article' => $article,
+            'popular' => $popular,
+            'recent' => $recent,
+            'categories' => $categories,
+            'tags' => $tags
+        ]);
     }
 
-    public function actionCategory()
+    public function actionCategory($id)
     {
-        return $this->render('category');
+        // build a DB query to get all articles with status = 1
+        $query = Article::find()->where(['category_id' => $id]);
+
+        // get the total number of articles (but do not fetch the article data yet)
+        $count = $query->count();
+
+        // create a pagination object with the total count
+        $pagination = new Pagination(['totalCount' => $count, 'pageSize' => 4]);
+
+        // limit the query using the pagination and retrieve the articles
+        $articles = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        $popular = Article::find()->orderBy('viewed desc')->limit('3')->all();
+        $recent = Article::find()->orderBy('date desc')->limit('4')->all();
+        $categories = Category::find()->all();
+
+        return $this->render('category', [
+            'articles' => $articles,
+            'pagination' => $pagination,
+            'popular' => $popular,
+            'recent' => $recent,
+            'categories' => $categories
+        ]);
     }
 }
