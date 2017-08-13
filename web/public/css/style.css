@@ -41,9 +41,14 @@ Table of contents
 /*--------------------------------------
     elements
 --------------------------------------*/
+* {
+    outline: none !important;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     background: #F4F4F4;
+    outline:none !important;
 }
 
 span, p, input {
@@ -1638,4 +1643,11 @@ p.go-back-home a:hover {
     background: #00BFF3;
     color: #fff;
     border-color: #00BFF3;
+}
+
+.login-form {
+    margin-top: 10px;
+    background: #ffffff;
+    padding-top: 50px;
+    height: calc(100vh - 165px);
 }
