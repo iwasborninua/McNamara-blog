@@ -27,33 +27,27 @@
 
                         <div class="social-share">
 							<span
-                                class="social-share-title pull-left text-capitalize">By Rubel On <?= $article->getDate();?></span>
-                            <ul class="text-center pull-right">
-                                <li><a class="s-facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="s-twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a class="s-google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a class="s-linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a class="s-instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
+                                class="social-share-title pull-left text-capitalize"><?= $article->user->name;?> On <?= $article->getDate();?></span>
                         </div>
                     </div>
                 </article>
 
-                <div class="leave-comment"><!--leave comment-->
-                    <h4>Leave a reply</h4>
+                <div id="disqus_thread"></div>
+                <script>
+                    var disqus_config = function () {
+                    this.page.url = '<?= \Yii::$app->request->getAbsoluteUrl(); ?>';  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = '<?= md5(\Yii::$app->request->getAbsoluteUrl()); ?>'; // R`eplace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
 
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://mcnamara.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-                    <form class="form-horizontal contact-form" role="form" method="post" action="#">
-
-                        <div class="form-group">
-                            <div class="col-md-12">
-										<textarea class="form-control" rows="6" name="message"
-                                                  placeholder="Write Massage"></textarea>
-                            </div>
-                        </div>
-                        <a href="#" class="btn send-btn">Post Comment</a>
-                    </form>
-                </div><!--end leave comment-->
             </div>
             <?= $this->render('/partionals/sidebar', [
                 'popular' => $popular,

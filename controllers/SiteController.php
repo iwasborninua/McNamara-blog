@@ -158,8 +158,10 @@ class SiteController extends Controller
         $popular = Article::find()->orderBy('viewed desc')->limit('3')->all();
         $recent = Article::find()->orderBy('date desc')->limit('4')->all();
         $categories = Category::find()->all();
-//        $tags = ArrayHelper::map($article->tags, 'id', 'title');
         $tags = $article->tags;
+        $article->viewedCount();
+
+
         return $this->render('single', [
             'article' => $article,
             'popular' => $popular,

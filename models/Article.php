@@ -138,4 +138,15 @@ class Article extends \yii\db\ActiveRecord
         $this->user_id = Yii::$app->user->id;
         return $this->save();
     }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function viewedCount()
+    {
+        $this->viewed += 1;
+        return $this->save(false);
+    }
 }
