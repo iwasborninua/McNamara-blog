@@ -95,8 +95,9 @@ header
 
 .main-menu .navbar-brand > img {
     display: block;
-    margin-right: 45px;
+    margin-left: 0 px;
     padding: 0 0;
+    padding-left: 50px;
 }
 
 .icon-right {
@@ -766,6 +767,7 @@ recent post
     position: relative;
     width: auto;
     margin-bottom: 0;
+    float: left;
 }
 
 .media .popular-img img {
@@ -1650,4 +1652,9 @@ p.go-back-home a:hover {
     background: #ffffff;
     padding-top: 50px;
     height: calc(100vh - 165px);
+    min-height:480px;
+}
+
+.nav.navbar-nav.text-uppercase {
+    padding-left: 32px;
 }
