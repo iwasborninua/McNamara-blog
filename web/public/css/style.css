@@ -1658,3 +1658,7 @@ p.go-back-home a:hover {
 .nav.navbar-nav.text-uppercase {
     padding-left: 32px;
 }
+
+html body nav.navbar.main-menu.navbar-default div.container div.menu-content div.navbar-header a.navbar-brand img {
+    padding-top: 3px;
+}
